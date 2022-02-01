@@ -1,0 +1,49 @@
+/*
+ *  This code creates an inverse text effect. It works by turning all the
+ *  LEDS in the panel ON, and then setting the text color to OFF.
+ */
+
+
+
+
+
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include "Adafruit_LEDBackpack.h"
+
+Adafruit_8x8matrix matrix = Adafruit_8x8matrix();
+
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("8x8 LED Matrix Test");
+
+  matrix.begin(0x70); //why 112?? this is the pin adress on the arduino
+
+}
+
+void loop() {
+
+ matrix.setTextSize(1);
+  matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
+  matrix.setTextColor(LED_OFF); //text will turn lights off
+  
+  for (int8_t x=7; x>=-41; x--) { //changing the number in the for loop changes how long the word will scroll. Increased from 36 to 41 so that "inverse" would scroll all the way across screen. How large the number is depends on the length of the word
+    matrix.clear();
+    matrix.fillScreen(LED_ON);//turns on all lights on screen
+    matrix.setCursor(x,0);
+    matrix.print("Inverse");
+    matrix.writeDisplay();
+    delay(100);
+  }
+ delay(500);
+   for (int8_t x=7; x>=-36; x--) { //starts at 7 for smooth animation
+    matrix.clear();
+    matrix.fillScreen(LED_ON);//turns on all lights on screen
+    matrix.setCursor(x,0);
+    matrix.print("Second");
+    matrix.writeDisplay();
+    delay(100);
+  }
+
+}
