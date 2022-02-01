@@ -1,0 +1,183 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include "Adafruit_LEDBackpack.h"
+
+
+Adafruit_BicolorMatrix matrix = Adafruit_BicolorMatrix();
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  matrix.begin(0x70);  // pass in the address
+}
+
+// 'Frame1Red', 8x8px
+const unsigned char Frame1Red [] PROGMEM = {
+  0xe7, 0xff, 0xff, 0x7e, 0x7e, 0xff, 0xff, 0xe7
+};
+
+// 'Frame2Red', 8x8px
+const unsigned char Frame2Red [] PROGMEM = {
+  0xc3, 0xe7, 0x7e, 0x3c, 0x3c, 0x7e, 0xe7, 0xc3
+};
+
+// 'Frame3Red', 8x8px
+const unsigned char Frame3Red [] PROGMEM = {
+  0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81
+};
+
+// 'Frame3Green', 8x8px
+const unsigned char Frame3Yellow [] PROGMEM = {
+  0x18, 0x00, 0x00, 0x81, 0x81, 0x00, 0x00, 0x18
+};
+
+// 'Frame4Yellow', 8x8px
+const unsigned char Frame4Yellow [] PROGMEM = {
+  0x3c, 0x18, 0x81, 0xc3, 0xc3, 0x81, 0x18, 0x3c
+};
+
+// 'Frame5Yellow', 8x8px
+const unsigned char Frame5Yellow [] PROGMEM = {
+  0x7e, 0xbd, 0xdb, 0xe7, 0xe7, 0xdb, 0xbd, 0x7e
+};
+
+// 'Frame6Yellow', 8x8px
+const unsigned char Frame6Yellow [] PROGMEM = {
+  0xe7, 0xff, 0xff, 0x7e, 0x7e, 0xff, 0xff, 0xe7
+};
+
+
+
+//variable for delay speed to control animation rate
+//fun values : 42 pulses, 84 smoother animation, 126 choppy animation, 100 seems to be what example code uses
+int speed=100;
+
+
+void loop() {
+
+  //frame 1
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame1Red, 8, 8, LED_RED);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 2
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame2Red,8,8,LED_RED);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 3
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame3Red,8,8,LED_RED);
+  matrix.drawBitmap(0,0, Frame3Yellow,8,8,LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 4
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame4Yellow,8,8, LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 5
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame5Yellow,8,8, LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 6
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame6Yellow,8,8, LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 7 (is the same shape as frame 2, just different color)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame2Red,8,8,LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 8 (color swap of Frame 3)
+  matrix.clear();
+  matrix.drawBitmap(0,0,Frame3Red,8,8,LED_YELLOW);
+  matrix.drawBitmap(0,0,Frame3Yellow,8,8,LED_GREEN);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 9 (color swap of Frame 4)
+  matrix.clear();
+  matrix.drawBitmap(0,0,Frame4Yellow,8,8,LED_GREEN);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 10 (color swap of Frame 5)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame5Yellow,8,8, LED_GREEN);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //DROPPED FRAME (Should be color swap of Frame 6)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame6Yellow,8,8, LED_GREEN);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 11(color swap of Frame 7)
+  //did Alex miss a color swap of frame 6?
+  matrix.clear();
+  matrix.drawBitmap(0,0,Frame2Red,8,8,LED_GREEN);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 12 (color swap of frame 8)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame3Red,8,8, LED_GREEN);
+  matrix.drawBitmap(0,0, Frame3Yellow,8,8, LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 13 ( color swap of Frame 9)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame4Yellow,8,8, LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 14 ( is frame 5)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame5Yellow,8,8, LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 15 (is frame 6)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame6Yellow,8,8, LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 16 ( is frame 7)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame2Red,8,8,LED_YELLOW);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 17 (color swap of Frame 3)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame3Red,8,8,LED_YELLOW);
+  matrix.drawBitmap(0,0, Frame3Yellow,8,8,LED_RED);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 18 ( color swap frame 4)
+  matrix.clear();
+  matrix.drawBitmap(0,0, Frame4Yellow,8,8, LED_RED);
+  matrix.writeDisplay();
+  delay(speed);
+
+  //frame 19 (color swap frame 5)
+   matrix.clear();
+  matrix.drawBitmap(0,0, Frame5Yellow,8,8, LED_RED);
+  matrix.writeDisplay();
+  delay(speed);
+}
